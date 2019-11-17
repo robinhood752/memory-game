@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace memory_game
 {
@@ -7,7 +7,7 @@ namespace memory_game
     {
         private int row1, column1, row2, column2;
 
-        private readonly Queue players = new Queue();
+        private readonly Queue<Player> players = new Queue<Player>();
 
         private readonly IBoard<T> board;
 
@@ -23,7 +23,7 @@ namespace memory_game
         {
             while (!board.IsSolved())
             {
-                var player = (Player)players.Peek();
+                var player = players.Peek();
 
                 board.Draw();
 
@@ -51,9 +51,9 @@ namespace memory_game
                 Console.Clear();
             }
 
-            Player winner = (Player)players.Peek();
+            var winner = players.Peek();
 
-            foreach (Player player in players)
+            foreach (var player in players)
             {
                 winner = winner.Score > player.Score ? winner : player;
             }
